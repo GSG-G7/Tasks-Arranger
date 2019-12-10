@@ -4,10 +4,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
 
 const firebaseConfig = {
-  apiKey: "<MY_API_KEY>",
-  authDomain: "<MY_AUTH_Domain>",
-  databaseURL: "<YOUR_DATABASE_URL>",
-  storageBucket: "<YOUR_STORAGE_BUCKET>"
+  apiKey: "AIzaSyBsVDmkwmJSwgfcRWbc8YBpDhBe9fCf5F8",
+  authDomain: "tasks-arranger.firebaseapp.com",
+  databaseURL: "https://tasks-arranger.firebaseio.com",
+  projectId: "tasks-arranger",
+  storageBucket: "tasks-arranger.appspot.com",
 }
 
 firebase.initializeApp(firebaseConfig);
