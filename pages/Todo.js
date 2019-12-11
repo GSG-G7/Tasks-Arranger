@@ -5,17 +5,28 @@ import { Container,Content,Header, Input, Item, Button, Icon, List,Body,ListItem
 import * as firebase from 'firebase';
 // import { ListItem, CheckBox } from "react-native-elements";
 
-var Tasks =[
-    {title:"Task1", status: true} , 
-    {title:"Task2", status: false} , 
-    {title:"Task3", status: true} , 
-    {title:"Task4", status: false}];
+// var Tasks =[
+//     {title:"Task1", status: true} , 
+//     {title:"Task2", status: false} , 
+//     {title:"Task3", status: true} , 
+//     {title:"Task4", status: false}];
+
+var Tasks = [];
 
 class Todo extends React.Component {
 
     state= {
         data: Tasks,
         newTask: ""
+    }
+    
+    componentDidMount(){
+
+        firebase.database().ref('/tasks').on('child_added', (task)=> {
+           var newData = [...this.state.data];
+           newData.push(task);
+           this.setState({data : newData});
+        })
     }
 
     addTask(data) {
@@ -49,7 +60,7 @@ class Todo extends React.Component {
               </Content>
           </Header>
 
-            <List>
+            <List enableEmptySections>
                 <FlatList
                     style={styles.list}
                     data={this.state.data}
@@ -60,7 +71,7 @@ class Todo extends React.Component {
                                     onPress={ () => this.onCheckBoxPress(item.status) }
                                     />
                                 <Body style={styles.listBody}>
-                                    <Text style={styles.listTitle}>{item.title}</Text>
+                                    <Text style={styles.listTitle}>{item.val().title}</Text>
 
                                     <Button style={styles.listButton}
                                                 onPress={()=> this.deleteTask()}>
