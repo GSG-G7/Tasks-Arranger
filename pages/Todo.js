@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, StatusBar, FlatList} from 'react-native';
 import { Container,Content,Header, Input, Item, Button, Icon, List,Body,ListItem,CheckBox} from 'native-base';
 
+import * as firebase from 'firebase';
 // import { ListItem, CheckBox } from "react-native-elements";
 
 var Tasks =[
@@ -14,9 +15,18 @@ class Todo extends React.Component {
 
     state= {
         data: Tasks,
-        newContact: ""
+        newTask: ""
     }
 
+    addTask(data) {
+      var key = firebase.database().ref('/tasks').push().key;
+      firebase.database().ref('/tasks').child(key).set({title : data, status: false});
+    }
+
+    deleteTask(){
+
+    }
+    
   render(){
     return (
       <Container>
@@ -27,8 +37,12 @@ class Todo extends React.Component {
                       <Input
                       placeholder="Add Task Name"
                       placeholderTextColor="#fff"
-                      style={styles.inputBox}/>
-                      <Button style={styles.buttonBox}>
+                      onChangeText={(newTask)=> this.setState({newTask})}
+                      style={styles.inputBox}
+                      />
+
+                      <Button style={styles.buttonBox} 
+                                onPress={()=> this.addTask(this.state.newTask)}>
                           <Icon name="add" style={styles.icon}></Icon>
                       </Button>          
                   </Item>
@@ -47,7 +61,9 @@ class Todo extends React.Component {
                                     />
                                 <Body style={styles.listBody}>
                                     <Text style={styles.listTitle}>{item.title}</Text>
-                                    <Button style={styles.listButton}>
+
+                                    <Button style={styles.listButton}
+                                                onPress={()=> this.deleteTask()}>
                                         <Icon name="trash" style={styles.listIcon} />
                                     </Button>
                                 </Body>
