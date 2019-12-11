@@ -29,13 +29,15 @@ class Todo extends React.Component {
         })
     }
 
-    addTask(data) {
+    addTask(task) {
       var key = firebase.database().ref('/tasks').push().key;
-      firebase.database().ref('/tasks').child(key).set({title : data, status: false});
+      firebase.database().ref('/tasks').child(key).set({title : task, status: false});
     }
 
-    deleteTask(){
-
+  async  deleteTask(task){
+    await firebase.database().ref('/tasks/'+task.key).set(null);
+    var newData = [...this.state.data];
+    this.setState({data : newData});
     }
     
   render(){
@@ -74,7 +76,7 @@ class Todo extends React.Component {
                                     <Text style={styles.listTitle}>{item.val().title}</Text>
 
                                     <Button style={styles.listButton}
-                                                onPress={()=> this.deleteTask()}>
+                                                onPress={()=> this.deleteTask(item)}>
                                         <Icon name="trash" style={styles.listIcon} />
                                     </Button>
                                 </Body>
