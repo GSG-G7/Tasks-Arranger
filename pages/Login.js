@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
+import { Container, Content, Header, Form, Input, Item, Button, Label, Row } from 'native-base';
 import * as firebase from 'firebase';
 
 class Login extends React.Component {
@@ -10,13 +10,25 @@ class Login extends React.Component {
       password: ''
     }
   ]
+
+  componentDidMount(){
+    firebase.auth()
+            .onAuthStateChanged((user)=> {
+                if(user !== null){
+            console.log(user);
+            }
+    })
+  }
+
   signupUser = (email,password) => {
     try{
       if(this.state.password.length<8){
           alert("please enter at Least 8 characters");
           return;
       }
-      firebase.auth().createUserWithEmailAndPassword(email,password);
+      firebase
+      .auth()
+      .createUserWithEmailAndPassword(email,password);
     }
     catch(error){
         console.log(error.toString());
@@ -38,12 +50,30 @@ class Login extends React.Component {
       
 }
 
+async loginWithFacebook (){
+
+    const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync
+    ('435742190661963',{permissions: ['public_profile']});
+    
+    if (type == 'success'){
+
+        const credential= firebase.auth.FacebookAuthProvider.credential(token);
+        
+        firebase.auth()
+                .signInWithCredential(credential)
+                .catch((error)=>{
+                      console.log(error);
+        })
+    }  
+}
+
+
   render(){
     return (
       <Container style={styles.container}>
         <form>
           <Item  style={styles.item}>
-            <Label style={[styles.label,styles.EmailLabel]}>Email</Label>
+            <Label style={styles.label}>Email</Label>
             <Input
                 autoCorrect={false}
                 autoCapitalize="none"
@@ -81,6 +111,15 @@ class Login extends React.Component {
               >
             <Text style={styles.buttonTxt}> Sign Up </Text>
           </Button>
+
+          <Button
+              full 
+              rounded
+              style={styles.facebook}
+              onPress={()=> this.loginWithFacebook()}
+              >
+            <Text style={styles.buttonTxt}> Login With Facebook </Text>
+          </Button>
         </form>
       </Container>
     );
@@ -92,22 +131,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    marginLeft:10,
+    marginLeft:15,
     marginRight: 10
   },
   item: {
     marginTop: 5,
     marginBottom:20,
-    paddingBottom:10
+    paddingBottom:10,
+    flexDirection: "column",
+    alignItems: "stretch"
   },
   label:{
     marginBottom:10,
   },
-  EmailLabel:{
-   marginRight:30
-  },
   input: {
    fontSize: 16,
+   alignItems: "stretch"
   },
   login:{ 
     marginTop: 10,
@@ -115,6 +154,9 @@ const styles = StyleSheet.create({
   },
   signup:{
    backgroundColor :'#3f90b5'
+  },
+  facebook:{
+    marginTop: 10,  
   },
   buttonTxt: {
     color: "#fff",
