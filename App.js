@@ -46,6 +46,14 @@ export default function App() {
             >
           <Text style={styles.buttonTxt}> Login </Text>
         </Button>
+
+        <Button
+            full 
+            rounded
+            style={styles.signup}
+            >
+          <Text style={styles.buttonTxt}> Sign Up </Text>
+        </Button>
       </form>
     </Container>
   );
@@ -72,10 +80,14 @@ const styles = StyleSheet.create({
   },
   login:{ 
     marginTop: 10,
+    marginBottom:10
+  },
+  signup:{
+   backgroundColor :'#3f90b5'
   },
   buttonTxt: {
     color: "#fff",
     fontSize:20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   }
 });
