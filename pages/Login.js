@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
+import { Container, Content, Header, Form, Input, Item, Button, Label, Row } from 'native-base';
 import * as firebase from 'firebase';
 
 class Login extends React.Component {
@@ -43,7 +43,7 @@ class Login extends React.Component {
       <Container style={styles.container}>
         <form>
           <Item  style={styles.item}>
-            <Label style={[styles.label,styles.EmailLabel]}>Email</Label>
+            <Label style={styles.label}>Email</Label>
             <Input
                 autoCorrect={false}
                 autoCapitalize="none"
@@ -92,22 +92,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    marginLeft:10,
+    marginLeft:15,
     marginRight: 10
   },
   item: {
     marginTop: 5,
     marginBottom:20,
-    paddingBottom:10
+    paddingBottom:10,
+    flexDirection: "column",
+    alignItems:"auto"
   },
   label:{
     marginBottom:10,
   },
-  EmailLabel:{
-   marginRight:30
-  },
   input: {
    fontSize: 16,
+   alignItems: "auto"
   },
   login:{ 
     marginTop: 10,
