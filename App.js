@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
 import * as firebase from 'firebase';
+
+import Login from './pages/Login';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBsVDmkwmJSwgfcRWbc8YBpDhBe9fCf5F8",
@@ -13,19 +14,19 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+
+const App = () => { 
+  return(
+    <View style={styles.conatiner}>
+      <Login />    
     </View>
-  );
+    )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  conatiner:{
+    flex:1,
+  }
+})
+
+export default App ;
