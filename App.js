@@ -15,48 +15,50 @@ firebase.initializeApp(firebaseConfig);
 
 import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
 
-export default function App() {
-  return (
-    <Container style={styles.container}>
-      <form>
-        <Item  style={styles.item}>
-          <Label style={styles.label}>Email</Label>
-          <Input
-              autoCorrect={false}
-              autoCapitalize="none"
-              style={styles.input}
-          ></Input>
-        </Item>
-
-        <Item  style={styles. item} >
-          <Label style={styles.label}>Password</Label>
-          <Input
-              secureTextEntry={true}
-              autoCorrect={false}
-              autoCapitalize="none"
-              style={styles.input}
-          ></Input>
-        </Item>
-
-        <Button
-            full 
-            rounded
-            success
-            style={styles.login}
-            >
-          <Text style={styles.buttonTxt}> Login </Text>
-        </Button>
-
-        <Button
-            full 
-            rounded
-            style={styles.signup}
-            >
-          <Text style={styles.buttonTxt}> Sign Up </Text>
-        </Button>
-      </form>
-    </Container>
-  );
+export default class App extends React.Component {
+  render(){
+    return (
+      <Container style={styles.container}>
+        <form>
+          <Item  style={styles.item}>
+            <Label style={styles.label}>Email</Label>
+            <Input
+                autoCorrect={false}
+                autoCapitalize="none"
+                style={styles.input}
+            ></Input>
+          </Item>
+  
+          <Item  style={styles. item} >
+            <Label style={styles.label}>Password</Label>
+            <Input
+                secureTextEntry={true}
+                autoCorrect={false}
+                autoCapitalize="none"
+                style={styles.input}
+            ></Input>
+          </Item>
+  
+          <Button
+              full 
+              rounded
+              success
+              style={styles.login}
+              >
+            <Text style={styles.buttonTxt}> Login </Text>
+          </Button>
+  
+          <Button
+              full 
+              rounded
+              style={styles.signup}
+              >
+            <Text style={styles.buttonTxt}> Sign Up </Text>
+          </Button>
+        </form>
+      </Container>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
