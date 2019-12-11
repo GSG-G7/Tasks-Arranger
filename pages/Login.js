@@ -43,7 +43,7 @@ class Login extends React.Component {
       <Container style={styles.container}>
         <form>
           <Item  style={styles.item}>
-            <Label style={styles.label}>Email</Label>
+            <Label style={[styles.label,styles.EmailLabel]}>Email</Label>
             <Input
                 autoCorrect={false}
                 autoCapitalize="none"
@@ -101,7 +101,10 @@ const styles = StyleSheet.create({
     paddingBottom:10
   },
   label:{
-    marginBottom:10
+    marginBottom:10,
+  },
+  EmailLabel:{
+   marginRight:30
   },
   input: {
    fontSize: 16,
