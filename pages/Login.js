@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Container, Content, Header, Form, Input, Item, Button, Label, Row } from 'native-base';
+import { StyleSheet, Text } from 'react-native';
+import { Container, Input, Item, Button, Label} from 'native-base';
 import * as firebase from 'firebase';
 
 class Login extends React.Component {
