@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
 import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
+import * as firebase from 'firebase';
 
 class Login extends React.Component {
   state= [
@@ -11,7 +11,17 @@ class Login extends React.Component {
     }
   ]
   signupUser = (email,password) => {
-
+    try{
+      if(this.state.password.length<8){
+          alert("please enter at Least 8 characters");
+          return;
+      }
+      firebase.auth().createUserWithEmailAndPassword(email,password);
+    }
+    catch(error){
+        console.log(error.toString());
+        
+    }
   }
 
   loginUser = (email,password) => {
