@@ -1,10 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, StatusBar, FlatList} from 'react-native';
-import { Container,Content,Header, Input, Item, Button, Icon, List} from 'native-base';
+import { Container,Content,Header, Input, Item, Button, Icon, List,Body,ListItem,CheckBox} from 'native-base';
 
-import { ListItem } from "react-native-elements";
+// import { ListItem, CheckBox } from "react-native-elements";
 
-var Tasks =["Task1" , "Task2"];
+var Tasks =[
+    {title:"Task1", status: true} , 
+    {title:"Task2", status: false} , 
+    {title:"Task3", status: true} , 
+    {title:"Task4", status: false}];
 
 class Todo extends React.Component {
 
@@ -36,12 +40,22 @@ class Todo extends React.Component {
                     style={styles.list}
                     data={this.state.data}
                     renderItem={({ item }) => (
-                        <ListItem
-                          title={item}
-                        />
+                        <ListItem>
+                              <CheckBox
+                                    checked={ item.status }
+                                    onPress={ () => this.onCheckBoxPress(item.status) }
+                                    />
+                                <Body style={styles.listBody}>
+                                    <Text style={styles.listTitle}>{item.title}</Text>
+                                    <Button style={styles.listButton}>
+                                        <Icon name="trash" style={styles.listIcon} />
+                                    </Button>
+                                </Body>
+                        </ListItem>
                       )}
                 />
               </List>
+
 
       </Container>
     );
@@ -66,6 +80,24 @@ const styles = StyleSheet.create({
     },
     list: {
         marginTop: 50
+    },
+    listBody:{
+        flex:1,
+        flexDirection: "row",
+        justifyContent:'space-between',
+        marginStart: 10,
+    },
+    listTitle: {
+        marginTop: 10,
+    },
+    listIcon:{
+        color: "#bc0909",
+        alignItems: "center"
+    },
+    listButton:{
+        backgroundColor: "none",
+        height: 30,
+        width: 30,
     }
 });
 
