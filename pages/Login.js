@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
-import { Container, Input, Item, Button, Label} from 'native-base';
+import { Container, Input, Item, Button, Label, Form} from 'native-base';
 import * as firebase from 'firebase';
 
 class Login extends React.Component {
@@ -71,7 +71,7 @@ async loginWithFacebook (){
   render(){
     return (
       <Container style={styles.container}>
-        <form>
+        <Form>
           <Item  style={styles.item}>
             <Label style={styles.label}>Email</Label>
             <Input
@@ -120,7 +120,7 @@ async loginWithFacebook (){
               >
             <Text style={styles.buttonTxt}> Login With Facebook </Text>
           </Button>
-        </form>
+        </Form>
       </Container>
     );
   }
