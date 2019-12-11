@@ -10,6 +10,13 @@ class Login extends React.Component {
       password: ''
     }
   ]
+  signupUser = (email,password) => {
+
+  }
+
+  loginUser = (email,password) => {
+      
+}
 
   render(){
     return (
@@ -21,6 +28,7 @@ class Login extends React.Component {
                 autoCorrect={false}
                 autoCapitalize="none"
                 style={styles.input}
+                onChangeText={(email)=> this.setState({email})}
             ></Input>
           </Item>
   
@@ -31,6 +39,7 @@ class Login extends React.Component {
                 autoCorrect={false}
                 autoCapitalize="none"
                 style={styles.input}
+                onChangeText={(password)=> this.setState({password})}
             ></Input>
           </Item>
   
@@ -39,6 +48,7 @@ class Login extends React.Component {
               rounded
               success
               style={styles.login}
+              onPress={()=>this.loginUser(this.state.email, this.state.password)}
               >
             <Text style={styles.buttonTxt}> Login </Text>
           </Button>
@@ -47,6 +57,7 @@ class Login extends React.Component {
               full 
               rounded
               style={styles.signup}
+              onPress={()=>this.signupUser(this.state.email, this.state.password)}
               >
             <Text style={styles.buttonTxt}> Sign Up </Text>
           </Button>
