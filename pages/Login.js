@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Container, Input, Item, Button, Label, Form} from 'native-base';
 import * as firebase from 'firebase';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 class Login extends React.Component {
   state= [
@@ -42,6 +43,7 @@ class Login extends React.Component {
         .auth().signInWithEmailAndPassword(email,password)
         .then((user)=>{
             console.log(user);
+            this.props.navigation.navigate('Todo');
         })
       }
       catch(error){
@@ -67,6 +69,15 @@ async loginWithFacebook (){
     }  
 }
 
+static navigationOptions = {
+  title: "Task Arranger",
+  headerTitleStyle: { 
+      textAlign:"center", 
+      fontSize: 24,
+      fontWeight: "bold",
+      flex:1 
+  },
+}
 
   render(){
     return (
@@ -132,7 +143,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     marginLeft:15,
-    marginRight: 10
+    marginRight: 10, 
+    marginTop: 50
   },
   item: {
     marginTop: 5,
