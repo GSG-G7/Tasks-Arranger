@@ -21,23 +21,39 @@ class Todo extends React.Component {
     }
     
     componentDidMount(){
-
         firebase.database().ref('/tasks').on('child_added', (task)=> {
            var newData = [...this.state.data];
            newData.push(task);
-           this.setState({data : newData});
+           this.setState({data : newData , newTask: ""});
         })
+        
+    }
+
+    componentDidUpdate(){
+        // firebase.database().ref('/tasks').on('child_removed', (task)=>{
+        //     var newData = [...this.state.data];
+        //     newData.splice(task.key,1);
+        //     this.state.data;
+        //  })
     }
 
     addTask(task) {
       var key = firebase.database().ref('/tasks').push().key;
       firebase.database().ref('/tasks').child(key).set({title : task, status: false});
+     
     }
+
+    // onHandleChange(e) {
+    //     e.preventDefault();
+    //     this.setState({newTask : e.target.value });
+    // }
 
   async  deleteTask(task){
     await firebase.database().ref('/tasks/'+task.key).set(null);
     var newData = [...this.state.data];
     this.setState({data : newData});
+    alert('deleted successfully !');
+    location.reload();
     }
     
   render(){
@@ -51,6 +67,7 @@ class Todo extends React.Component {
                       placeholder="Add Task Name"
                       placeholderTextColor="#fff"
                       onChangeText={(newTask)=> this.setState({newTask})}
+                    //   onChange={(e) => this.onHandleChange(e)}
                       style={styles.inputBox}
                       />
 
