@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as firebase from 'firebase';
 
-import Login from './pages/Login';
-import Todo from './pages/Todo';
+import AppContainer from './pages/Navigator';
+// import Todo from './pages/Todo';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBsVDmkwmJSwgfcRWbc8YBpDhBe9fCf5F8",
@@ -19,8 +19,8 @@ firebase.initializeApp(firebaseConfig);
 const App = () => { 
   return(
     <View style={styles.conatiner}>
-      {/* <Login />     */}
-      <Todo />
+      <AppContainer />    
+      {/* <Todo /> */}
     </View>
     )
 }

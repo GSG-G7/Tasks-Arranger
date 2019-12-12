@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, StatusBar, FlatList} from 'react-native';
+import { StyleSheet, Text, StatusBar, FlatList, View} from 'react-native';
 import { Container,Content,Header, Input, Item, Button, Icon, List,Body,ListItem,CheckBox} from 'native-base';
 
 import * as firebase from 'firebase';
+import { TextInput } from 'react-native-gesture-handler';
 // import { ListItem, CheckBox } from "react-native-elements";
 
 // var Tasks =[
@@ -30,11 +31,8 @@ class Todo extends React.Component {
     }
 
     componentDidUpdate(){
-        // firebase.database().ref('/tasks').on('child_removed', (task)=>{
-        //     var newData = [...this.state.data];
-        //     newData.splice(task.key,1);
-        //     this.state.data;
-        //  })
+        firebase.database().ref('/tasks')
+
     }
 
     addTask(task) {
@@ -43,17 +41,16 @@ class Todo extends React.Component {
      
     }
 
-    // onHandleChange(e) {
-    //     e.preventDefault();
-    //     this.setState({newTask : e.target.value });
-    // }
+    onChangeText = event => {
+        this.setState({ text: event.target.value });
+      };
+    
 
   async  deleteTask(task){
     await firebase.database().ref('/tasks/'+task.key).set(null);
-    var newData = [...this.state.data];
+    var newData = [...this.state.data].filter(_task => _task.key !== task.key);
     this.setState({data : newData});
     alert('deleted successfully !');
-    location.reload();
     }
     
   render(){
@@ -61,13 +58,12 @@ class Todo extends React.Component {
       <Container>
             
           <Header style={styles.header}>
-              <Content>
+              <View>
                   <Item>
-                      <Input
+                      <TextInput
                       placeholder="Add Task Name"
-                      placeholderTextColor="#fff"
+                      placeholderTextColor="#d0d1d9"
                       onChangeText={(newTask)=> this.setState({newTask})}
-                    //   onChange={(e) => this.onHandleChange(e)}
                       style={styles.inputBox}
                       />
 
@@ -76,7 +72,7 @@ class Todo extends React.Component {
                           <Icon name="add" style={styles.icon}></Icon>
                       </Button>          
                   </Item>
-              </Content>
+              </View>
           </Header>
 
             <List enableEmptySections>
@@ -111,11 +107,12 @@ class Todo extends React.Component {
 const styles = StyleSheet.create({
     header:{
         marginTop:StatusBar.currentHeight,
-        backgroundColor:"#3f90b5"
+        backgroundColor:"#fff",
+        marginTop: 25
     },
     inputBox:{
         justifyContent: "flex-start",
-        color: "#fff"
+        color: "#000"
     },
     buttonBox:{
         justifyContent: "flex-end",
@@ -125,7 +122,7 @@ const styles = StyleSheet.create({
         backgroundColor:"#3f90b5"
     },
     list: {
-        marginTop: 50
+        marginTop: 20
     },
     listBody:{
         flex:1,
