@@ -38,7 +38,6 @@ class Todo extends React.Component {
     addTask(task) {
       var key = firebase.database().ref('/tasks').push().key;
       firebase.database().ref('/tasks').child(key).set({title : task, status: false});
-     
     }
 
     onChangeText = event => {
@@ -64,6 +63,7 @@ class Todo extends React.Component {
                       placeholder="Add Task Name"
                       placeholderTextColor="#d0d1d9"
                       onChangeText={(newTask)=> this.setState({newTask})}
+                      value={ this.state.newTask}
                       style={styles.inputBox}
                       />
 
